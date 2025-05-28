@@ -1,4 +1,4 @@
-CareLLM: 基于 Qwen2.5-Omni 的多模态心理辅导探索 
+#CareLLM: 基于 Qwen2.5-Omni 的多模态心理辅导探索# 
 
 
 简介
