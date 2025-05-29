@@ -175,32 +175,70 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>python -m venv carellm_env</code></pre></td>
+        <td><pre><code>#!/bin/bash
+python3 -m venv carellm_env
+if [ $? -ne 0 ]; then
+  echo "创建虚拟环境失败，请检查 Python 安装"
+  exit 1
+fi
+</code></pre></td>
         <td>创建虚拟环境</td>
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>source carellm_env/bin/activate</code></pre></td>
+        <td><pre><code>#!/bin/bash
+source carellm_env/bin/activate
+if [ $? -ne 0 ]; then
+  echo "激活虚拟环境失败，请检查路径"
+  exit 1
+fi
+</code></pre></td>
         <td>激活环境 (Linux/macOS)</td>
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>carellm_env\Scripts\activate</code></pre></td>
+        <td><pre><code>#!/bin/bash
+carellm_env\Scripts\activate
+if errorlevel 1 (
+  echo "激活虚拟环境失败，请检查路径"
+  exit /b 1
+)
+</code></pre></td>
         <td>激活环境 (Windows)</td>
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>pip install torch transformers==4.45.2 accelerate gradio==4.36.1 sounddevice numpy</code></pre></td>
+        <td><pre><code>#!/bin/bash
+pip3 install torch transformers==4.45.2 accelerate gradio==4.36.1 sounddevice numpy
+if [ $? -ne 0 ]; then
+  echo "依赖安装失败，请检查网络或 pip 版本"
+  exit 1
+fi
+</code></pre></td>
         <td>安装依赖，包括语音支持</td>
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone https://huggingface.co/Qwen/Qwen2.5-Omni-7B</code></pre></td>
+        <td><pre><code>#!/bin/bash
+git clone https://huggingface.co/Qwen/Qwen2.5-Omni-7B
+if [ $? -ne 0 ]; then
+  echo "模型下载失败，请检查网络或 Git 配置"
+  exit 1
+fi
+</code></pre></td>
         <td>下载 7B 模型 (22GB)</td>
       </tr>
       <tr>
-        <td>Python</td>
-        <td><pre><code>from transformers import AutoModelForCausalLM; model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-Omni-7B'); print('模型加载成功！')</code></pre></td>
+        <td>Bash</td>
+        <td><pre><code>#!/bin/bash
+python3 -c "from transformers import AutoModelForCausalLM; print(AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-Omni-7B'))"
+if [ $? -eq 0 ]; then
+  echo "模型加载成功！"
+else
+  echo "模型加载失败，请检查依赖或模型路径"
+  exit 1
+fi
+</code></pre></td>
         <td>验证模型加载</td>
       </tr>
     </table>
@@ -221,17 +259,41 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone https://github.com/QwenLM/vllm.git -b qwen2_omni_public<br>cd vllm<br>pip install -r requirements-cuda.txt<br>pip install .</code></pre></td>
+        <td><pre><code>#!/bin/bash
+git clone https://github.com/QwenLM/vllm.git -b qwen2_omni_public
+if [ $? -ne 0 ]; then
+  echo "克隆 vLLM 失败，请检查网络"
+  exit 1
+fi
+cd vllm
+pip3 install -r requirements-cuda.txt && pip3 install .
+if [ $? -ne 0 ]; then
+  echo "安装 vLLM 失败，请检查依赖"
+  exit 1
+fi
+</code></pre></td>
         <td>安装 vLLM</td>
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>python end2end.py --model Qwen/Qwen2.5-Omni-7B --prompt audio-in-video-v2</code></pre></td>
+        <td><pre><code>#!/bin/bash
+python3 end2end.py --model Qwen/Qwen2.5-Omni-7B --prompt audio-in-video-v2
+if [ $? -ne 0 ]; then
+  echo "推理失败，请检查模型或参数"
+  exit 1
+fi
+</code></pre></td>
         <td>文本推理</td>
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>vllm serve Qwen/Qwen2.5-Omni-7B --port 8000 --dtype bfloat16 -tp 4</code></pre></td>
+        <td><pre><code>#!/bin/bash
+vllm serve Qwen/Qwen2.5-Omni-7B --port 8000 --dtype bfloat16 -tp 4
+if [ $? -ne 0 ]; then
+  echo "启动 API 服务失败，请检查 GPU 或端口"
+  exit 1
+fi
+</code></pre></td>
         <td>API 服务 (4 GPU)</td>
       </tr>
     </table>
@@ -245,7 +307,13 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>docker run --gpus all -it qwenllm/qwen-omni:2.5-cu121 bash</code></pre></td>
+        <td><pre><code>#!/bin/bash
+docker run --gpus all -it qwenllm/qwen-omni:2.5-cu121 bash
+if [ $? -ne 0 ]; then
+  echo "启动 Docker 容器失败，请检查 Docker 安装或 GPU 支持"
+  exit 1
+fi
+</code></pre></td>
         <td>启动容器</td>
       </tr>
     </table>
@@ -259,7 +327,13 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>pip install MNN</code></pre></td>
+        <td><pre><code>#!/bin/bash
+pip3 install MNN
+if [ $? -ne 0 ]; then
+  echo "安装 MNN 失败，请检查网络或 pip 版本"
+  exit 1
+fi
+</code></pre></td>
         <td>安装 MNN 框架</td>
       </tr>
     </table>
@@ -273,7 +347,7 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
 <h3>交互方式</h3>
 <ol>
   <li><strong>命令行交互</strong>：
-    <p>使用 Python 脚本直接交互，适合测试和调试。</p>
+    <p>使用 Bash 脚本调用 Python 脚本与模型交互，适合测试和调试。</p>
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
         <th>类型</th>
@@ -281,23 +355,26 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
         <th>说明</th>
       </tr>
       <tr>
-        <td>Python</td>
-        <td><pre><code>from transformers import pipeline
-pipe = pipeline("text-generation", model="Qwen/Qwen2.5-Omni-7B")
-prompt = "我最近感到很焦虑，怎样才能缓解？"
-response = pipe(prompt, max_length=200, do_sample=True, temperature=0.7)
-print(response[0]['generated_text'])
+        <td>Bash</td>
+        <td><pre><code>#!/bin/bash
+PROMPT="我最近感到很焦虑，怎样才能缓解？"
+python3 -c "from transformers import pipeline; pipe = pipeline('text-generation', model='Qwen/Qwen2.5-Omni-7B'); response = pipe('$PROMPT', max_length=200, do_sample=True, temperature=0.7); print(response[0]['generated_text'])"
+if [ $? -ne 0 ]; then
+  echo "生成对话失败，请检查模型或参数"
+  exit 1
+fi
 </code></pre></td>
         <td>使用 pipeline 快速生成对话</td>
       </tr>
       <tr>
-        <td>Python</td>
-        <td><pre><code>from transformers import AutoModelForCausalLM, AutoTokenizer
-model = AutoModelForCausalLM.from_pretrained("Qwen/Qwen2.5-Omni-7B")
-tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-Omni-7B")
-inputs = tokenizer("我感到压力很大", return_tensors="pt")
-outputs = model.generate(**inputs, max_length=200)
-print(tokenizer.decode(outputs[0]))
+        <td>Bash</td>
+        <td><pre><code>#!/bin/bash
+PROMPT="我感到压力很大"
+python3 -c "from transformers import AutoModelForCausalLM, AutoTokenizer; model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-Omni-7B'); tokenizer = AutoTokenizer.from_pretrained('Qwen/Qwen2.5-Omni-7B'); inputs = tokenizer('$PROMPT', return_tensors='pt'); outputs = model.generate(**inputs, max_length=200); print(tokenizer.decode(outputs[0]))"
+if [ $? -ne 0 ]; then
+  echo "生成对话失败，请检查模型或参数"
+  exit 1
+fi
 </code></pre></td>
         <td>低级 API，精细控制生成</td>
       </tr>
@@ -313,25 +390,29 @@ print(tokenizer.decode(outputs[0]))
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone https://github.com/glacierwisdom/CareLLM.git<br>cd CareLLM<br>python demos/counseling_demo.py</code></pre></td>
+        <td><pre><code>#!/bin/bash
+git clone https://github.com/glacierwisdom/CareLLM.git
+if [ $? -ne 0 ]; then
+  echo "克隆仓库失败，请检查网络"
+  exit 1
+fi
+cd CareLLM
+python3 demos/counseling_demo.py
+if [ $? -ne 0 ]; then
+  echo "启动 Gradio 失败，请检查依赖或脚本"
+  exit 1
+fi
+</code></pre></td>
         <td>启动 Gradio，访问 http://127.0.0.1:7860</td>
       </tr>
       <tr>
-        <td>Python</td>
-        <td><pre><code>import gradio as gr
-from transformers import pipeline
-pipe = pipeline("text-generation", model="Qwen/Qwen2.5-Omni-7B")
-def generate_response(prompt):
-    response = pipe(prompt, max_length=200)
-    return response[0]['generated_text']
-demo = gr.Interface(
-    fn=generate_response,
-    inputs=[gr.Textbox(label="问题"), gr.Audio(label="语音", source="microphone")],
-    outputs=gr.Textbox(label="回应"),
-    title="CareLLM 心理辅导",
-    description="输入心理健康问题，获取回应（研究用途）"
-)
-demo.launch()
+        <td>Bash</td>
+        <td><pre><code>#!/bin/bash
+python3 -c "import gradio as gr; from transformers import pipeline; pipe = pipeline('text-generation', model='Qwen/Qwen2.5-Omni-7B'); def generate_response(prompt): response = pipe(prompt, max_length=200); return response[0]['generated_text']; demo = gr.Interface(fn=generate_response, inputs=[gr.Textbox(label='问题'), gr.Audio(label='语音', source='microphone')], outputs=gr.Textbox(label='回应'), title='CareLLM 心理辅导', description='输入心理健康问题，获取回应（研究用途）'); demo.launch()"
+if [ $? -ne 0 ]; then
+  echo "启动 Gradio 失败，请检查依赖"
+  exit 1
+fi
 </code></pre></td>
         <td>自定义 Gradio，支持语音</td>
       </tr>
@@ -352,12 +433,12 @@ demo.launch()
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>torch
-transformers==4.45.2
-accelerate
-gradio==4.36.1
-sounddevice
-numpy
+        <td><pre><code>#!/bin/bash
+echo -e "torch\ntransformers==4.45.2\naccelerate\ngradio==4.36.1\nsounddevice\nnumpy" > requirements.txt
+if [ $? -ne 0 ]; then
+  echo "创建 requirements.txt 失败"
+  exit 1
+fi
 </code></pre></td>
         <td>创建 requirements.txt 配置依赖</td>
       </tr>
@@ -377,12 +458,24 @@ numpy
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>pip install sounddevice numpy</code></pre></td>
+        <td><pre><code>#!/bin/bash
+pip3 install sounddevice numpy
+if [ $? -ne 0 ]; then
+  echo "安装语音依赖失败，请检查网络"
+  exit 1
+fi
+</code></pre></td>
         <td>安装语音依赖</td>
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>python end2end.py --model Qwen/Qwen2.5-Omni-7B --do-wave --voice-type Chelsie --output-dir output_wav</code></pre></td>
+        <td><pre><code>#!/bin/bash
+python3 end2end.py --model Qwen/Qwen2.5-Omni-7B --do-wave --voice-type Chelsie --output-dir output_wav
+if [ $? -ne 0 ]; then
+  echo "生成语音输出失败，请检查参数"
+  exit 1
+fi
+</code></pre></td>
         <td>生成语音输出</td>
       </tr>
     </table>
