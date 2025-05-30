@@ -1,23 +1,23 @@
-<div align="center">  
-<h1>冰智科技心理健康大语言模型项目</h1>
+<div align="center">
+  <h1>冰智科技心理健康大语言模型项目</h1>
 </div>
 
 <!-- 项目徽标 -->
 <p align="center">
-  <a href="./LICENSE"><img src="[invalid url, do not cite] alt="License"></a>
-  <a href="#"><img src="[invalid url, do not cite] alt="Supported OS"></a>
-  <a href="#"><img src="[invalid url, do not cite] alt="Python Version"></a>
-  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="Contributors"></a>
-  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="Commit Activity"></a>
-  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="Open Issues"></a>
-  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="GitHub Stars"></a>
+  <a href="./LICENSE"><span style="background-color: #ff0000; color: white; padding: 2px 5px;">License: Apache 2</span></a>
+  <a href="#"><span style="background-color: #ff69b4; color: white; padding: 2px 5px;">OS: Linux, Win, Mac</span></a>
+  <a href="#"><span style="background-color: #87ceeb; color: white; padding: 2px 5px;">Python: 3.8+</span></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/graphs/contributors"><span style="background-color: #98fb98; color: black; padding: 2px 5px;">Contributors</span></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/commits/main"><span style="background-color: #00ff7f; color: black; padding: 2px 5px;">Commit Activity</span></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/issues"><span style="background-color: #9acd32; color: black; padding: 2px 5px;">Open Issues</span></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/stargazers"><span style="background-color: #b0e0e6; color: black; padding: 2px 5px;">GitHub Stars</span></a>
 </p>
 
 <!-- 项目简介 -->
 <div align="center">
   <h2>项目简介</h2>
   <p>
-    CareLLM 是一个开源项目，基于 <a href="[invalid url, do not cite] 多模态大语言模型，探索心理健康领域的创新应用。Qwen2.5-Omni 支持文本、语音、图像和视频处理，具备实时交互能力。本项目通过交互式界面、心理辅导数据集和微调计划，提升模型在情感支持和情绪分析中的表现，为研究提供强大工具。
+    CareLLM 是一个开源项目，基于 <a href="https://github.com/QwenLM/Qwen2.5-Omni">Qwen2.5-Omni</a> 多模态大语言模型，探索心理健康领域的创新应用。Qwen2.5-Omni 支持文本、语音、图像和视频处理，具备实时交互能力。本项目通过交互式界面、心理辅导数据集和微调计划，提升模型在情感支持和情绪分析中的表现，为研究提供强大工具。
   </p>
   <p style="color: red; font-weight: bold;">
     ⚠️ <strong>重要声明</strong>：本项目仅用于研究，未经微调的 Qwen2.5-Omni 模型不适合实际心理辅导。使用需遵守伦理规范和法律法规。
@@ -48,28 +48,28 @@
     <th>适用场景</th>
   </tr>
   <tr>
-    <td><a href="[invalid url, do not cite]
+    <td><a href="https://huggingface.co/Qwen/Qwen2.5-Omni-7B">Qwen2.5-Omni-7B</a></td>
     <td>70 亿</td>
     <td>16GB VRAM (文本, BF16)<br>32GB VRAM (音频)<br>60GB VRAM (60s 视频)</td>
     <td>全功能多模态，最高性能</td>
     <td>心理辅导研究，复杂交互</td>
   </tr>
   <tr>
-    <td><a href="[invalid url, do not cite]
+    <td><a href="https://huggingface.co/Qwen/Qwen2.5-Omni-3B">Qwen2.5-Omni-3B</a></td>
     <td>30 亿</td>
     <td>8GB VRAM (文本)<br>16GB VRAM (音频)</td>
     <td>轻量级，快速推理</td>
     <td>低资源设备，快速测试</td>
   </tr>
   <tr>
-    <td><a href="[invalid url, do not cite]
+    <td><a href="https://huggingface.co/taobao-mnn/Qwen2.5-Omni-7B-MNN">Qwen2.5-Omni-7B-MNN</a></td>
     <td>70 亿</td>
     <td>10GB VRAM (优化后)</td>
     <td>MNN 优化，移动设备支持</td>
     <td>移动端心理辅导</td>
   </tr>
   <tr>
-    <td><a href="[invalid url, do not cite]
+    <td><a href="https://modelscope.cn/models/MNN/Qwen2.5-Omni-3B-MNN">Qwen2.5-Omni-3B-MNN</a></td>
     <td>30 亿</td>
     <td>5GB VRAM (优化后)</td>
     <td>超轻量，低端设备</td>
@@ -241,7 +241,7 @@
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone [invalid url, do not cite]
+        <td><pre><code>git clone https://huggingface.co/Qwen/Qwen2.5-Omni-7B</code></pre></td>
         <td>下载 7B 模型 (22GB)</td>
       </tr>
       <tr>
@@ -267,7 +267,7 @@
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone [invalid url, do not cite] -b qwen2_omni_public<br>cd vllm<br>pip install -r requirements-cuda.txt<br>pip install .</code></pre></td>
+        <td><pre><code>git clone https://github.com/QwenLM/vllm.git -b qwen2_omni_public<br>cd vllm<br>pip install -r requirements-cuda.txt<br>pip install .</code></pre></td>
         <td>安装 vLLM</td>
       </tr>
       <tr>
@@ -309,7 +309,7 @@
         <td>安装 MNN 框架</td>
       </tr>
     </table>
-    <p>下载 <a href="[invalid url, do not cite] <a href="[invalid url, do not cite] 文档</a>.</p>
+    <p>下载 <a href="https://huggingface.co/taobao-mnn/Qwen2.5-Omni-7B-MNN">7B-MNN</a>，参考 <a href="https://github.com/alibaba/MNN">MNN 文档</a>.</p>
   </li>
 </ol>
 
@@ -359,8 +359,8 @@ print(tokenizer.decode(outputs[0]))
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone [invalid url, do not cite] CareLLM<br>python demos/counseling_demo.py</code></pre></td>
-        <td>启动 Gradio，访问 [invalid url, do not cite]
+        <td><pre><code>git clone https://github.com/glacierwisdom/CareLLM.git<br>cd CareLLM<br>python demos/counseling_demo.py</code></pre></td>
+        <td>启动 Gradio，访问 http://127.0.0.1:7860</td>
       </tr>
       <tr>
         <td>Python</td>
@@ -393,7 +393,7 @@ demo.launch()
       </tr>
       <tr>
         <td>步骤</td>
-        <td>登录 <a href="[invalid url, do not cite] Face</a>，创建 Space（glacierwisdom/CareLLM-Demo）。</td>
+        <td>登录 <a href="https://huggingface.co/">Hugging Face</a>，创建 Space（glacierwisdom/CareLLM-Demo）。</td>
         <td>新建 Gradio Space</td>
       </tr>
       <tr>
@@ -409,7 +409,7 @@ numpy
       </tr>
       <tr>
         <td>步骤</td>
-        <td>部署后访问 Space URL（如 [invalid url, do not cite]
+        <td>部署后访问 Space URL（如 https://huggingface.co/spaces/glacierwisdom/CareLLM-Demo）。</td>
         <td>在线交互</td>
       </tr>
     </table>
@@ -444,21 +444,21 @@ numpy
     <ul>
       <li><strong>概述</strong>：230 万样本多轮共情对话，覆盖家庭、婚恋、职场等场景。</li>
       <li><strong>特点</strong>：注入倾听、安慰等共情要素，安全合规。</li>
-      <li><strong>资源</strong>： <a href="[invalid url, do not cite]
+      <li><strong>资源</strong>： <a href="https://www.modelscope.cn/datasets/YIRONGCHEN/SoulChatCorpus">ModelScope</a></li>
     </ul>
   </li>
   <li><strong>GoEmotions</strong>:
     <ul>
       <li><strong>概述</strong>：58,009 条 Reddit 评论，27 种情感类别。</li>
       <li><strong>特点</strong>：高质量标注，适合情绪分析。</li>
-      <li><strong>资源</strong>： <a href="[invalid url, do not cite] Face</a></li>
+      <li><strong>资源</strong>： <a href="https://huggingface.co/datasets/google-research-datasets/go_emotions">Hugging Face</a></li>
     </ul>
   </li>
   <li><strong>EmpatheticDialogues</strong>:
     <ul>
       <li><strong>概述</strong>：25,000+ 条共情对话，基于个人故事。</li>
       <li><strong>特点</strong>：多轮对话，模拟咨询。</li>
-      <li><strong>资源</strong>： <a href="[invalid url, do not cite]
+      <li><strong>资源</strong>： <a href="https://github.com/facebookresearch/EmpatheticDialogues">GitHub</a></li>
     </ul>
   </li>
 </ul>
@@ -488,14 +488,23 @@ numpy
 <h2>贡献</h2>
 <ul>
   <li><a href="./CONTRIBUTING.md">贡献指南</a></li>
-  <li><a href="[invalid url, do not cite]
-  <li><a href="[invalid url, do not cite] Discord</a></li>
+  <li><a href="https://github.com/glacierwisdom/CareLLM/issues">Issues</a></li>
+  <li><a href="https://discord.com/invite/qwen">Qwen Discord</a></li>
 </ul>
 
 <hr>
 
 <h2>联系我们</h2>
 <ul>
-  <li><strong>GitHub</strong>： <a href="[invalid url, do not cite]
-  <li><strong>社区</strong>： <a href="[invalid url, do not cite] Discord</a></li>
+  <li><strong>GitHub</strong>： <a href="https://github.com/glacierwisdom">@glacierwisdom</a></li>
+  <li><strong>社区</strong>： <a href="https://discord.com/invite/qwen">Qwen Discord</a></li>
+</ul>
+
+<hr>
+
+<h2>致谢</h2>
+<ul>
+  <li>Qwen 团队</li>
+  <li>Hugging Face</li>
+  <li>EmoLLM: <a href="https://github.com/SmartFlowAI/EmoLLM">SmartFlowAI/EmoLLM</a></li>
 </ul>
