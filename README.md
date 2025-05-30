@@ -4,13 +4,13 @@
 
 <!-- 项目徽标 -->
 <p align="center">
-  <a href="./LICENSE"><span style="background-color: #ff0000; color: white; padding: 2px 5px;">License: Apache 2</span></a>
-  <a href="#"><span style="background-color: #ff69b4; color: white; padding: 2px 5px;">OS: Linux, Win, Mac</span></a>
-  <a href="#"><span style="background-color: #87ceeb; color: white; padding: 2px 5px;">Python: 3.8+</span></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/graphs/contributors"><span style="background-color: #98fb98; color: black; padding: 2px 5px;">Contributors</span></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/commits/main"><span style="background-color: #00ff7f; color: black; padding: 2px 5px;">Commit Activity</span></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/issues"><span style="background-color: #9acd32; color: black; padding: 2px 5px;">Open Issues</span></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/stargazers"><span style="background-color: #b0e0e6; color: black; padding: 2px 5px;">GitHub Stars</span></a>
+  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202-red.svg" alt="License"></a>
+  <a href="#"><img src="https://img.shields.io/badge/os-linux%2C%20win%2C%20mac-pink.svg" alt="Supported OS"></a>
+  <a href="#"><img src="https://img.shields.io/badge/python-3.8+-aff.svg" alt="Python Version"></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/graphs/contributors"><img src="https://img.shields.io/github/contributors/glacierwisdom/CareLLM?color=9ea" alt="Contributors"></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/commits/main"><img src="https://img.shields.io/github/commit-activity/m/glacierwisdom/CareLLM?color=3af" alt="Commit Activity"></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/issues"><img src="https://img.shields.io/github/issues/glacierwisdom/CareLLM?color=9cc" alt="Open Issues"></a>
+  <a href="https://github.com/glacierwisdom/CareLLM/stargazers"><img src="https://img.shields.io/github/stars/glacierwisdom/CareLLM?color=ccf" alt="GitHub Stars"></a>
 </p>
 
 <!-- 项目简介 -->
@@ -84,78 +84,32 @@
 
 <h2>心理辅导应用</h2>
 <h3>应用场景</h3>
-<p>
-  Qwen2.5-Omni 的多模态能力使其在心理辅导领域具有显著潜力，以下是具体应用方式：
-</p>
+Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
 <ol>
-  <li><strong>文本生成</strong>:
+  <li><strong>情感支持</strong> [<a href="https://arxiv.org/html/2408.16276v1">1</a>]:
     <ul>
-      <li><strong>功能</strong>：生成同理心和支持性的文本回应，增强用户信任。</li>
-      <li><strong>用途</strong>：用于文本聊天机器人，帮助用户表达情感并提供初步支持。</li>
-      <li><strong>示例</strong>：用户输入“我最近感到很焦虑”，模型生成“听起来你正经历一段艰难的时光，能否分享更多你的感受？”。</li>
+      <li><strong>功能</strong>：生成温暖的同理心回应，增强用户信任。</li>
+      <li><strong>流程</strong>：用户输入文本/语音（如“我感到压力很大”），模型分析情绪，生成回应（如“听起来很困难，有什么可以帮助你的？”），并提供建议（如正念练习）。</li>
       <li><strong>技术</strong>：基于 Transformer 的文本生成，结合上下文和情绪关键词分析。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户通过 Web-UI 或命令行输入文本问题。</li>
-          <li>模型分析输入，生成支持性回应。</li>
-          <li>提供建议（如正念练习）或引导进一步对话。</li>
-        </ul>
-      </li>
     </ul>
   </li>
-  <li><strong>语音交互</strong>:
+  <li><strong>情绪分析</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11612938/">2</a>]:
     <ul>
-      <li><strong>功能</strong>：处理和生成语音输入和输出，增强交互自然性。</li>
-      <li><strong>用途</strong>：创建语音助手，用户用语音描述问题，模型以自然语音回应。</li>
-      <li><strong>示例</strong>：用户用语音说“我感到压力很大”，模型用语音回答“压力是很常见的，能告诉我是什么让你感到压力大吗？”。</li>
-      <li><strong>技术</strong>：基于 Thinker-Talker 架构的语音生成，结合语音特征提取。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户通过 Gradio Web-UI 的麦克风输入语音。</li>
-          <li>模型处理语音，生成语音或文本回应。</li>
-          <li>提供情绪分析或建议（如放松技巧）。</li>
-        </ul>
-      </li>
+      <li><strong>功能</strong>：检测焦虑、抑郁等情绪状态。</li>
+      <li><strong>流程</strong>：用户输入多模态数据（文本、语音），模型提取语调、关键词特征，生成情绪报告或个性化建议。</li>
+      <li><strong>技术</strong>：语音特征提取结合情感分类模型。</li>
     </ul>
   </li>
-  <li><strong>视频分析</strong>:
+  <li><strong>虚拟现实对话</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12004015/">3</a>]:
     <ul>
-      <li><strong>功能</strong>：理解视频输入，包括面部表情和肢体语言。</li>
-      <li><strong>用途</strong>：在视频咨询中，分析非语言线索以理解情感状态。</li>
-      <li><strong>示例</strong>：用户在视频中表达焦虑，模型识别面部表情并回应“从你的表情来看，你似乎很焦虑”。</li>
-      <li><strong>技术</strong>：基于 TMRoPE（Time-aligned Multimodal RoPE）同步视频和音频，分析情绪线索。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户通过 Web-UI 上传视频或实时视频流。</li>
-          <li>模型提取视觉特征，结合文本/语音生成回应。</li>
-          <li>提供情绪报告或个性化建议。</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li><strong>多模态整合</strong>:
-    <ul>
-      <li><strong>功能</strong>：同时处理文本、音频和视频输入，提供综合分析。</li>
-      <li><strong>用途</strong>：为用户提供更个性化的支持，结合多种线索理解需求。</li>
-      <li><strong>示例</strong>：用户发送语音和视频，模型结合两者生成回应。</li>
-      <li><strong>技术</strong>：Thinker-Talker 架构整合多模态输入，生成流式输出。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户通过 Web-UI 输入多模态数据。</li>
-          <li>模型分析综合特征，生成个性化回应。</li>
-          <li>提供情绪分析或建议，需微调以提升准确性。</li>
-        </ul>
-      </li>
+      <li><strong>功能</strong>：通过 VR 平台与虚拟咨询师互动，促进自我反思。</li>
+      <li><strong>流程</strong>：部署模型到 VR 环境，用户通过语音交互，模型实时生成引导性回应。</li>
+      <li><strong>技术</strong>：实时语音生成与 VR 集成。</li>
     </ul>
   </li>
 </ol>
 <p align="center">
-  <strong>注意事项</strong>：
-  <ul>
-    <li><strong>伦理考虑</strong>：AI 模型不应替代专业心理咨询师，仅作为辅助工具，最终决策需由专业人士做出。</li>
-    <li><strong>隐私保护</strong>：处理用户数据时需遵守 GDPR 等隐私法规，确保信息安全。</li>
-    <li><strong>模型限制</strong>：未经微调的 Qwen2.5-Omni 可能无法准确理解复杂情感，需结合人类判断。</li>
-  </ul>
+  <strong>注意</strong>：未经微调的模型可能生成不准确回应，需优化以确保安全性。
 </p>
 
 <hr>
@@ -318,7 +272,7 @@
 <h2>与模型交互</h2>
 <h3>交互方式</h3>
 <ol>
-  <li><strong>命令行交互</strong>:
+  <li><strong>命令行交互</strong>：
     <p>使用 Python 脚本直接交互，适合测试和调试。</p>
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
@@ -349,7 +303,7 @@ print(tokenizer.decode(outputs[0]))
       </tr>
     </table>
   </li>
-  <li><strong>Web-UI 交互（Gradio）</strong>:
+  <li><strong>Web-UI 交互（Gradio）</strong>：
     <p>提供本地 Web 界面，支持文本和语音输入。</p>
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
@@ -383,7 +337,7 @@ demo.launch()
       </tr>
     </table>
   </li>
-  <li><strong>在线交互（Hugging Face Spaces）</strong>:
+  <li><strong>在线交互（Hugging Face Spaces）</strong>：
     <p>云端 Web 界面，适合分享。</p>
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
@@ -414,7 +368,7 @@ numpy
       </tr>
     </table>
   </li>
-  <li><strong>语音交互配置</strong>:
+  <li><strong>语音交互配置</strong>：
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
         <th>类型</th>
@@ -451,7 +405,7 @@ numpy
     <ul>
       <li><strong>概述</strong>：58,009 条 Reddit 评论，27 种情感类别。</li>
       <li><strong>特点</strong>：高质量标注，适合情绪分析。</li>
-      <li><strong>资源</strong>： <a href="https://huggingface.co/datasets/google-research-datasets/go_emotions">Hugging Face</a></li>
+      <li><strong>资源</strong>： <a href="https://hf-mirror.com/datasets/google-research-datasets/go_emotions">Hugging Face</a></li>
     </ul>
   </li>
   <li><strong>EmpatheticDialogues</strong>:
