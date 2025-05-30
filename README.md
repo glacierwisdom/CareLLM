@@ -1,23 +1,23 @@
-<div align="center">
-  <h1>冰智科技心理健康大语言模型项目</h1>
+<div align="center">  
+<h1>冰智科技心理健康大语言模型项目</h1>
 </div>
 
 <!-- 项目徽标 -->
 <p align="center">
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-Apache%202-red.svg" alt="License"></a>
-  <a href="#"><img src="https://img.shields.io/badge/os-linux%2C%20win%2C%20mac-pink.svg" alt="Supported OS"></a>
-  <a href="#"><img src="https://img.shields.io/badge/python-3.8+-aff.svg" alt="Python Version"></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/graphs/contributors"><img src="https://img.shields.io/github/contributors/glacierwisdom/CareLLM?color=9ea" alt="Contributors"></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/commits/main"><img src="https://img.shields.io/github/commit-activity/m/glacierwisdom/CareLLM?color=3af" alt="Commit Activity"></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/issues"><img src="https://img.shields.io/github/issues/glacierwisdom/CareLLM?color=9cc" alt="Open Issues"></a>
-  <a href="https://github.com/glacierwisdom/CareLLM/stargazers"><img src="https://img.shields.io/github/stars/glacierwisdom/CareLLM?color=ccf" alt="GitHub Stars"></a>
+  <a href="./LICENSE"><img src="[invalid url, do not cite] alt="License"></a>
+  <a href="#"><img src="[invalid url, do not cite] alt="Supported OS"></a>
+  <a href="#"><img src="[invalid url, do not cite] alt="Python Version"></a>
+  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="Contributors"></a>
+  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="Commit Activity"></a>
+  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="Open Issues"></a>
+  <a href="[invalid url, do not cite] src="[invalid url, do not cite] alt="GitHub Stars"></a>
 </p>
 
 <!-- 项目简介 -->
 <div align="center">
   <h2>项目简介</h2>
   <p>
-    CareLLM 是一个开源项目，基于 <a href="https://github.com/QwenLM/Qwen2.5-Omni">Qwen2.5-Omni</a> 多模态大语言模型，探索心理健康领域的创新应用。Qwen2.5-Omni 支持文本、语音、图像和视频处理，具备实时交互能力。本项目通过交互式界面、心理辅导数据集和微调计划，提升模型在情感支持和情绪分析中的表现，为研究提供强大工具。
+    CareLLM 是一个开源项目，基于 <a href="[invalid url, do not cite] 多模态大语言模型，探索心理健康领域的创新应用。Qwen2.5-Omni 支持文本、语音、图像和视频处理，具备实时交互能力。本项目通过交互式界面、心理辅导数据集和微调计划，提升模型在情感支持和情绪分析中的表现，为研究提供强大工具。
   </p>
   <p style="color: red; font-weight: bold;">
     ⚠️ <strong>重要声明</strong>：本项目仅用于研究，未经微调的 Qwen2.5-Omni 模型不适合实际心理辅导。使用需遵守伦理规范和法律法规。
@@ -48,28 +48,28 @@
     <th>适用场景</th>
   </tr>
   <tr>
-    <td><a href="https://huggingface.co/Qwen/Qwen2.5-Omni-7B">Qwen2.5-Omni-7B</a></td>
+    <td><a href="[invalid url, do not cite]
     <td>70 亿</td>
     <td>16GB VRAM (文本, BF16)<br>32GB VRAM (音频)<br>60GB VRAM (60s 视频)</td>
     <td>全功能多模态，最高性能</td>
     <td>心理辅导研究，复杂交互</td>
   </tr>
   <tr>
-    <td><a href="https://huggingface.co/Qwen/Qwen2.5-Omni-3B">Qwen2.5-Omni-3B</a></td>
+    <td><a href="[invalid url, do not cite]
     <td>30 亿</td>
     <td>8GB VRAM (文本)<br>16GB VRAM (音频)</td>
     <td>轻量级，快速推理</td>
     <td>低资源设备，快速测试</td>
   </tr>
   <tr>
-    <td><a href="https://huggingface.co/taobao-mnn/Qwen2.5-Omni-7B-MNN">Qwen2.5-Omni-7B-MNN</a></td>
+    <td><a href="[invalid url, do not cite]
     <td>70 亿</td>
     <td>10GB VRAM (优化后)</td>
     <td>MNN 优化，移动设备支持</td>
     <td>移动端心理辅导</td>
   </tr>
   <tr>
-    <td><a href="https://modelscope.cn/models/MNN/Qwen2.5-Omni-3B-MNN">Qwen2.5-Omni-3B-MNN</a></td>
+    <td><a href="[invalid url, do not cite]
     <td>30 亿</td>
     <td>5GB VRAM (优化后)</td>
     <td>超轻量，低端设备</td>
@@ -84,32 +84,78 @@
 
 <h2>心理辅导应用</h2>
 <h3>应用场景</h3>
-Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
+<p>
+  Qwen2.5-Omni 的多模态能力使其在心理辅导领域具有显著潜力，以下是具体应用方式：
+</p>
 <ol>
-  <li><strong>情感支持</strong> [<a href="https://arxiv.org/html/2408.16276v1">1</a>]:
+  <li><strong>文本生成</strong>:
     <ul>
-      <li><strong>功能</strong>：生成温暖的同理心回应，增强用户信任。</li>
-      <li><strong>流程</strong>：用户输入文本/语音（如“我感到压力很大”），模型分析情绪，生成回应（如“听起来很困难，有什么可以帮助你的？”），并提供建议（如正念练习）。</li>
+      <li><strong>功能</strong>：生成同理心和支持性的文本回应，增强用户信任。</li>
+      <li><strong>用途</strong>：用于文本聊天机器人，帮助用户表达情感并提供初步支持。</li>
+      <li><strong>示例</strong>：用户输入“我最近感到很焦虑”，模型生成“听起来你正经历一段艰难的时光，能否分享更多你的感受？”。</li>
       <li><strong>技术</strong>：基于 Transformer 的文本生成，结合上下文和情绪关键词分析。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户通过 Web-UI 或命令行输入文本问题。</li>
+          <li>模型分析输入，生成支持性回应。</li>
+          <li>提供建议（如正念练习）或引导进一步对话。</li>
+        </ul>
+      </li>
     </ul>
   </li>
-  <li><strong>情绪分析</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11612938/">2</a>]:
+  <li><strong>语音交互</strong>:
     <ul>
-      <li><strong>功能</strong>：检测焦虑、抑郁等情绪状态。</li>
-      <li><strong>流程</strong>：用户输入多模态数据（文本、语音），模型提取语调、关键词特征，生成情绪报告或个性化建议。</li>
-      <li><strong>技术</strong>：语音特征提取结合情感分类模型。</li>
+      <li><strong>功能</strong>：处理和生成语音输入和输出，增强交互自然性。</li>
+      <li><strong>用途</strong>：创建语音助手，用户用语音描述问题，模型以自然语音回应。</li>
+      <li><strong>示例</strong>：用户用语音说“我感到压力很大”，模型用语音回答“压力是很常见的，能告诉我是什么让你感到压力大吗？”。</li>
+      <li><strong>技术</strong>：基于 Thinker-Talker 架构的语音生成，结合语音特征提取。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户通过 Gradio Web-UI 的麦克风输入语音。</li>
+          <li>模型处理语音，生成语音或文本回应。</li>
+          <li>提供情绪分析或建议（如放松技巧）。</li>
+        </ul>
+      </li>
     </ul>
   </li>
-  <li><strong>虚拟现实对话</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12004015/">3</a>]:
+  <li><strong>视频分析</strong>:
     <ul>
-      <li><strong>功能</strong>：通过 VR 平台与虚拟咨询师互动，促进自我反思。</li>
-      <li><strong>流程</strong>：部署模型到 VR 环境，用户通过语音交互，模型实时生成引导性回应。</li>
-      <li><strong>技术</strong>：实时语音生成与 VR 集成。</li>
+      <li><strong>功能</strong>：理解视频输入，包括面部表情和肢体语言。</li>
+      <li><strong>用途</strong>：在视频咨询中，分析非语言线索以理解情感状态。</li>
+      <li><strong>示例</strong>：用户在视频中表达焦虑，模型识别面部表情并回应“从你的表情来看，你似乎很焦虑”。</li>
+      <li><strong>技术</strong>：基于 TMRoPE（Time-aligned Multimodal RoPE）同步视频和音频，分析情绪线索。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户通过 Web-UI 上传视频或实时视频流。</li>
+          <li>模型提取视觉特征，结合文本/语音生成回应。</li>
+          <li>提供情绪报告或个性化建议。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>多模态整合</strong>:
+    <ul>
+      <li><strong>功能</strong>：同时处理文本、音频和视频输入，提供综合分析。</li>
+      <li><strong>用途</strong>：为用户提供更个性化的支持，结合多种线索理解需求。</li>
+      <li><strong>示例</strong>：用户发送语音和视频，模型结合两者生成回应。</li>
+      <li><strong>技术</strong>：Thinker-Talker 架构整合多模态输入，生成流式输出。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户通过 Web-UI 输入多模态数据。</li>
+          <li>模型分析综合特征，生成个性化回应。</li>
+          <li>提供情绪分析或建议，需微调以提升准确性。</li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ol>
 <p align="center">
-  <strong>注意</strong>：未经微调的模型可能生成不准确回应，需优化以确保安全性。
+  <strong>注意事项</strong>：
+  <ul>
+    <li><strong>伦理考虑</strong>：AI 模型不应替代专业心理咨询师，仅作为辅助工具，最终决策需由专业人士做出。</li>
+    <li><strong>隐私保护</strong>：处理用户数据时需遵守 GDPR 等隐私法规，确保信息安全。</li>
+    <li><strong>模型限制</strong>：未经微调的 Qwen2.5-Omni 可能无法准确理解复杂情感，需结合人类判断。</li>
+  </ul>
 </p>
 
 <hr>
@@ -195,7 +241,7 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone https://huggingface.co/Qwen/Qwen2.5-Omni-7B</code></pre></td>
+        <td><pre><code>git clone [invalid url, do not cite]
         <td>下载 7B 模型 (22GB)</td>
       </tr>
       <tr>
@@ -221,7 +267,7 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone https://github.com/QwenLM/vllm.git -b qwen2_omni_public<br>cd vllm<br>pip install -r requirements-cuda.txt<br>pip install .</code></pre></td>
+        <td><pre><code>git clone [invalid url, do not cite] -b qwen2_omni_public<br>cd vllm<br>pip install -r requirements-cuda.txt<br>pip install .</code></pre></td>
         <td>安装 vLLM</td>
       </tr>
       <tr>
@@ -263,7 +309,7 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
         <td>安装 MNN 框架</td>
       </tr>
     </table>
-    <p>下载 <a href="https://huggingface.co/taobao-mnn/Qwen2.5-Omni-7B-MNN">7B-MNN</a>，参考 <a href="https://github.com/alibaba/MNN">MNN 文档</a>.</p>
+    <p>下载 <a href="[invalid url, do not cite] <a href="[invalid url, do not cite] 文档</a>.</p>
   </li>
 </ol>
 
@@ -272,7 +318,7 @@ Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
 <h2>与模型交互</h2>
 <h3>交互方式</h3>
 <ol>
-  <li><strong>命令行交互</strong>：
+  <li><strong>命令行交互</strong>:
     <p>使用 Python 脚本直接交互，适合测试和调试。</p>
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
@@ -303,7 +349,7 @@ print(tokenizer.decode(outputs[0]))
       </tr>
     </table>
   </li>
-  <li><strong>Web-UI 交互（Gradio）</strong>：
+  <li><strong>Web-UI 交互（Gradio）</strong>:
     <p>提供本地 Web 界面，支持文本和语音输入。</p>
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
@@ -313,8 +359,8 @@ print(tokenizer.decode(outputs[0]))
       </tr>
       <tr>
         <td>Bash</td>
-        <td><pre><code>git clone https://github.com/glacierwisdom/CareLLM.git<br>cd CareLLM<br>python demos/counseling_demo.py</code></pre></td>
-        <td>启动 Gradio，访问 http://127.0.0.1:7860</td>
+        <td><pre><code>git clone [invalid url, do not cite] CareLLM<br>python demos/counseling_demo.py</code></pre></td>
+        <td>启动 Gradio，访问 [invalid url, do not cite]
       </tr>
       <tr>
         <td>Python</td>
@@ -337,7 +383,7 @@ demo.launch()
       </tr>
     </table>
   </li>
-  <li><strong>在线交互（Hugging Face Spaces）</strong>：
+  <li><strong>在线交互（Hugging Face Spaces）</strong>:
     <p>云端 Web 界面，适合分享。</p>
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
@@ -347,7 +393,7 @@ demo.launch()
       </tr>
       <tr>
         <td>步骤</td>
-        <td>登录 <a href="https://huggingface.co/">Hugging Face</a>，创建 Space（glacierwisdom/CareLLM-Demo）。</td>
+        <td>登录 <a href="[invalid url, do not cite] Face</a>，创建 Space（glacierwisdom/CareLLM-Demo）。</td>
         <td>新建 Gradio Space</td>
       </tr>
       <tr>
@@ -363,12 +409,12 @@ numpy
       </tr>
       <tr>
         <td>步骤</td>
-        <td>部署后访问 Space URL（如 https://huggingface.co/spaces/glacierwisdom/CareLLM-Demo）。</td>
+        <td>部署后访问 Space URL（如 [invalid url, do not cite]
         <td>在线交互</td>
       </tr>
     </table>
   </li>
-  <li><strong>语音交互配置</strong>：
+  <li><strong>语音交互配置</strong>:
     <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
       <tr style="background-color: #f2f2f2;">
         <th>类型</th>
@@ -398,21 +444,21 @@ numpy
     <ul>
       <li><strong>概述</strong>：230 万样本多轮共情对话，覆盖家庭、婚恋、职场等场景。</li>
       <li><strong>特点</strong>：注入倾听、安慰等共情要素，安全合规。</li>
-      <li><strong>资源</strong>： <a href="https://www.modelscope.cn/datasets/YIRONGCHEN/SoulChatCorpus">ModelScope</a></li>
+      <li><strong>资源</strong>： <a href="[invalid url, do not cite]
     </ul>
   </li>
   <li><strong>GoEmotions</strong>:
     <ul>
       <li><strong>概述</strong>：58,009 条 Reddit 评论，27 种情感类别。</li>
       <li><strong>特点</strong>：高质量标注，适合情绪分析。</li>
-      <li><strong>资源</strong>： <a href="https://hf-mirror.com/datasets/google-research-datasets/go_emotions">Hugging Face</a></li>
+      <li><strong>资源</strong>： <a href="[invalid url, do not cite] Face</a></li>
     </ul>
   </li>
   <li><strong>EmpatheticDialogues</strong>:
     <ul>
       <li><strong>概述</strong>：25,000+ 条共情对话，基于个人故事。</li>
       <li><strong>特点</strong>：多轮对话，模拟咨询。</li>
-      <li><strong>资源</strong>： <a href="https://github.com/facebookresearch/EmpatheticDialogues">GitHub</a></li>
+      <li><strong>资源</strong>： <a href="[invalid url, do not cite]
     </ul>
   </li>
 </ul>
@@ -442,23 +488,14 @@ numpy
 <h2>贡献</h2>
 <ul>
   <li><a href="./CONTRIBUTING.md">贡献指南</a></li>
-  <li><a href="https://github.com/glacierwisdom/CareLLM/issues">Issues</a></li>
-  <li><a href="https://discord.com/invite/qwen">Qwen Discord</a></li>
+  <li><a href="[invalid url, do not cite]
+  <li><a href="[invalid url, do not cite] Discord</a></li>
 </ul>
 
 <hr>
 
 <h2>联系我们</h2>
 <ul>
-  <li><strong>GitHub</strong>： <a href="https://github.com/glacierwisdom">@glacierwisdom</a></li>
-  <li><strong>社区</strong>： <a href="https://discord.com/invite/qwen">Qwen Discord</a></li>
-</ul>
-
-<hr>
-
-<h2>致谢</h2>
-<ul>
-  <li>Qwen 团队</li>
-  <li>Hugging Face</li>
-  <li>EmoLLM: <a href="https://github.com/SmartFlowAI/EmoLLM">SmartFlowAI/EmoLLM</a></li>
+  <li><strong>GitHub</strong>： <a href="[invalid url, do not cite]
+  <li><strong>社区</strong>： <a href="[invalid url, do not cite] Discord</a></li>
 </ul>
