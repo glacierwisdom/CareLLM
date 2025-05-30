@@ -427,7 +427,7 @@ numpy
           </tr>
         </table>
       </li>
-      <li><strong>资源</strong>： <a href="https://github.com/yirongch/SoulChat">SoulChat on GitHub</a></li>
+      <li><strong>资源</strong>： <a href="https://www.kaggle.com/datasets/airzip/soul-chatcorpus/datat">SoulChat on GitHub</a></li>
     </ul>
   </li>
   <li><strong>GoEmotions</strong>:
