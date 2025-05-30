@@ -396,37 +396,152 @@ numpy
 <ul>
   <li><strong>SoulChatCorpus</strong>:
     <ul>
-      <li><strong>概述</strong>：230 万样本多轮共情对话，覆盖家庭、婚恋、职场等场景。</li>
-      <li><strong>特点</strong>：注入倾听、安慰等共情要素，安全合规。</li>
-      <li><strong>资源</strong>： <a href="https://www.modelscope.cn/datasets/YIRONGCHEN/SoulChatCorpus">ModelScope</a></li>
+      <li><strong>概述</strong>：SoulChatCorpus 是一个大规模多轮共情对话数据集，包含 230 万对话样本，覆盖心理健康相关的多轮对话场景（如家庭关系、职场压力、自我认知等），用于提升模型的共情和倾听能力。</li>
+      <li><strong>特点</strong>：对话轮数为 8-20 轮，包含倾听、安慰、共情回应等要素，经过严格的安全审查，适合心理辅导模型训练。</li>
+      <li><strong>数据集结构</strong>：
+        <table border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>字段</th>
+            <th>描述</th>
+            <th>示例</th>
+          </tr>
+          <tr>
+            <td>dialogue_id</td>
+            <td>对话唯一标识</td>
+            <td>dialogue_001</td>
+          </tr>
+          <tr>
+            <td>turns</td>
+            <td>对话轮次（JSON 格式）</td>
+            <td>[{"user": "我最近压力很大", "assistant": "听起来很困难，能否分享更多？"}]</td>
+          </tr>
+          <tr>
+            <td>scene</td>
+            <td>对话场景</td>
+            <td>职场压力</td>
+          </tr>
+          <tr>
+            <td>emotion</td>
+            <td>用户情绪标签</td>
+            <td>焦虑</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>资源</strong>： <a href="https://github.com/yirongch/SoulChat">SoulChat on GitHub</a></li>
     </ul>
   </li>
   <li><strong>GoEmotions</strong>:
     <ul>
-      <li><strong>概述</strong>：58,009 条 Reddit 评论，27 种情感类别。</li>
-      <li><strong>特点</strong>：高质量标注，适合情绪分析。</li>
-      <li><strong>资源</strong>： <a href="https://hf-mirror.com/datasets/google-research-datasets/go_emotions">Hugging Face</a></li>
+      <li><strong>概述</strong>：GoEmotions 包含 58,009 条 Reddit 评论，标注了 27 种细粒度情感类别（如“愤怒”、“悲伤”、“开心”等）以及 Neutral 标签，由 Google Research 团队开发，用于情绪分析任务。</li>
+      <li><strong>特点</strong>：高质量人工标注，涵盖多种情绪，支持多标签分类，提供 train/val/test 分割（43,410/5,426/5,427），适合情感识别模型训练。</li>
+      <li><strong>数据集结构</strong>：
+        <table border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>字段</th>
+            <th>描述</th>
+            <th>示例</th>
+          </tr>
+          <tr>
+            <td>text</td>
+            <td>评论文本</td>
+            <td>"I’m so disappointed with this product!"</td>
+          </tr>
+          <tr>
+            <td>emotions</td>
+            <td>情感标签（多标签）</td>
+            <td>["disappointment", "sadness"]</td>
+          </tr>
+          <tr>
+            <td>id</td>
+            <td>样本唯一标识</td>
+            <td>reddit_12345</td>
+          </tr>
+          <tr>
+            <td>subreddit</td>
+            <td>来源子版块</td>
+            <td>r/tech</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>资源</strong>： <a href="https://huggingface.co/datasets/google-research-datasets/go_emotions">GoEmotions on Hugging Face</a></li>
     </ul>
   </li>
   <li><strong>EmpatheticDialogues</strong>:
     <ul>
-      <li><strong>概述</strong>：25,000+ 条共情对话，基于个人故事。</li>
-      <li><strong>特点</strong>：多轮对话，模拟咨询。</li>
-      <li><strong>资源</strong>： <a href="https://github.com/facebookresearch/EmpatheticDialogues">GitHub</a></li>
+      <li><strong>概述</strong>：EmpatheticDialogues 包含 25,000+ 条共情对话，基于真实个人故事，由 Facebook AI 开发，标注了 32 种情绪类别，适用于心理咨询场景的共情回应生成。</li>
+      <li><strong>特点</strong>：每段对话基于用户故事，包含 4-8 轮对话，适合多轮对话生成任务，支持共情能力训练。</li>
+      <li><strong>数据集结构</strong>：
+        <table border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>字段</th>
+            <th>描述</th>
+            <th>示例</th>
+          </tr>
+          <tr>
+            <td>conv_id</td>
+            <td>对话唯一标识</td>
+            <td>conv_789</td>
+          </tr>
+          <tr>
+            <td>emotion</td>
+            <td>对话主导情绪</td>
+            <td>anxious</td>
+          </tr>
+          <tr>
+            <td>context</td>
+            <td>用户故事背景</td>
+            <td>"I just lost my job."</td>
+          </tr>
+          <tr>
+            <td>dialogue</td>
+            <td>对话内容（多轮）</td>
+            <td>["That must be really tough.", "Yes, I feel so lost."]</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>资源</strong>： <a href="https://github.com/facebookresearch/EmpatheticDialogues">EmpatheticDialogues on GitHub</a></li>
     </ul>
   </li>
 </ul>
+<p><strong>使用建议</strong>：SoulChatCorpus 适合多轮共情对话训练，GoEmotions 适合情绪分类任务，EmpatheticDialogues 适合基于故事的共情回应生成。</p>
 
 <hr>
 
 <h2>微调计划</h2>
 <h3>微调策略</h3>
 <ul>
-  <li><strong>LoRA</strong>：优化共情回应，降低计算成本。</li>
-  <li><strong>全参数</strong>：针对焦虑、抑郁场景。</li>
-  <li><strong>多模态</strong>：增强语音、图像处理。</li>
+  <li><strong>LoRA（低秩适配）微调</strong>:
+    <ul>
+      <li><strong>目标</strong>：优化 Qwen2.5-Omni 模型的共情回应能力，生成更贴近心理辅导场景的对话。</li>
+      <li><strong>方法</strong>：在 SoulChatCorpus 上使用 LoRA 技术，仅更新部分参数（低秩矩阵），减少计算资源需求，同时保持模型性能。</li>
+      <li><strong>硬件要求</strong>：单张 NVIDIA A100 40GB GPU，16GB VRAM 即可完成微调。</li>
+      <li><strong>超参数</strong>：秩（rank）=8，学习率=1e-4，批大小=16，训练轮数=3，基于 QLoRA 优化（4-bit 量化）。</li>
+      <li><strong>预期效果</strong>：提升模型在焦虑、抑郁场景下的共情回应质量，例如生成“听起来你很焦虑，能否告诉我更多？”等回应。</li>
+      <li><strong>指南</strong>： <a href="https://arxiv.org/abs/2305.14314">QLoRA Fine-Tuning Guide</a></li>
+    </ul>
+  </li>
+  <li><strong>全参数微调</strong>:
+    <ul>
+      <li><strong>目标</strong>：全面提升模型在复杂心理辅导场景（如焦虑、抑郁、自我认知）的表现，增强多模态处理能力。</li>
+      <li><strong>方法</strong>：使用 SoulChatCorpus 和 EmpatheticDialogues 数据集，对 Qwen2.5-Omni-7B 模型进行全参数微调，更新所有权重。</li>
+      <li><strong>硬件要求</strong>：需要 4 张 NVIDIA A100 80GB GPU，建议使用多节点分布式训练（Data Parallel 或 DeepSpeed）。</li>
+      <li><strong>超参数</strong>：学习率=2e-5，批大小=4（每 GPU），训练轮数=5，启用 BF16 混合精度训练。</li>
+      <li><strong>预期效果</strong>：模型能够更准确地识别用户情绪，并生成更具针对性的建议，例如“也许你可以试试深呼吸，或者找一个朋友聊聊？”。</li>
+      <li><strong>指南</strong>： <a href="https://www.researchgate.net/publication/381279326_Leveraging_Large_Language_Models_for_Enhanced_Psychological_Consultation_A_Comprehensive_Framework_and_Evaluation">Full Parameter Fine-Tuning Framework</a></li>
+    </ul>
+  </li>
+  <li><strong>多模态微调</strong>:
+    <ul>
+      <li><strong>目标</strong>：增强 Qwen2.5-Omni 在语音和图像输入上的处理能力，适用于语音交互和情绪分析场景。</li>
+      <li><strong>方法</strong>：结合语音数据集（如语音标注的情绪数据）和文本数据，微调模型的多模态模块（语音编码器和文本生成器），冻结视觉模块以降低资源需求。</li>
+      <li><strong>硬件要求</strong>：需要 60GB VRAM（语音+文本联合训练），推荐 4 张 A100 80GB GPU。</li>
+      <li><strong>超参数</strong>：学习率=1e-5，批大小=2（每 GPU），训练轮数=3，启用冻结部分预训练权重（冻结视觉模块，仅微调语音和文本模块）。</li>
+      <li><strong>预期效果</strong>：模型能够通过用户语音语调判断情绪，并生成语音回应，例如用温暖的语气回复“别担心，我们一起来解决这个问题。”</li>
+      <li><strong>指南</strong>： <a href="https://github.com/philschmid/deep-learning-pytorch-huggingface/blob/main/training/fine-tune-multimodal-llms-with-trl.ipynb">Multimodal Fine-Tuning with TRL</a></li>
+    </ul>
+  </li>
 </ul>
-<p>详情： <a href="finetune/README.md">finetune/README.md</a></p>
+<p><strong>注意事项</strong>：微调前需备份模型权重，建议使用 LoRA 进行初步实验以降低成本。全参数微调可能需要数天，需确保硬件稳定。</p>
 
 <hr>
 
