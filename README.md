@@ -427,13 +427,13 @@ numpy
           </tr>
         </table>
       </li>
-      <li><strong>资源</strong>： <a href="https://www.kaggle.com/datasets/airzip/soul-chatcorpus/datat">SoulChat on GitHub</a></li>
+      <li><strong>资源</strong>： <a href="https://www.kaggle.com/datasets/airzip/soul-chatcorpus">SoulChatcorpus on kaggle</a></li>
     </ul>
   </li>
   <li><strong>GoEmotions</strong>:
     <ul>
-      <li><strong>概述</strong>：GoEmotions 包含 58,009 条 Reddit 评论，标注了 27 种细粒度情感类别（如“愤怒”、“悲伤”、“开心”等）以及 Neutral 标签，由 Google Research 团队开发，用于情绪分析任务。</li>
-      <li><strong>特点</strong>：高质量人工标注，涵盖多种情绪，支持多标签分类，提供 train/val/test 分割（43,410/5,426/5,427），适合情感识别模型训练。</li>
+      <li><strong>概述</strong>：GoEmotions 包含 58,009 条 Reddit 评论，标注了 27 种细粒度情感类别（如“愤怒”、“悲伤”、“开心”等），由 Google Research 团队开发，用于情绪分析任务。</li>
+      <li><strong>特点</strong>：高质量人工标注，涵盖多种情绪，支持多标签分类，适用于情感识别模型训练。</li>
       <li><strong>数据集结构</strong>：
         <table border="1" style="width: 80%; border-collapse: collapse;">
           <tr style="background-color: #f2f2f2;">
@@ -463,13 +463,13 @@ numpy
           </tr>
         </table>
       </li>
-      <li><strong>资源</strong>： <a href="https://huggingface.co/datasets/google-research-datasets/go_emotions">GoEmotions on Hugging Face</a></li>
+      <li><strong>资源</strong>： <a href="https://hf-mirror.com/datasets/google-research-datasets/go_emotions">Hugging Face</a></li>
     </ul>
   </li>
   <li><strong>EmpatheticDialogues</strong>:
     <ul>
-      <li><strong>概述</strong>：EmpatheticDialogues 包含 25,000+ 条共情对话，基于真实个人故事，由 Facebook AI 开发，标注了 32 种情绪类别，适用于心理咨询场景的共情回应生成。</li>
-      <li><strong>特点</strong>：每段对话基于用户故事，包含 4-8 轮对话，适合多轮对话生成任务，支持共情能力训练。</li>
+      <li><strong>概述</strong>：EmpatheticDialogues 包含 25,000+ 条共情对话，基于真实个人故事，由 Facebook AI 开发，旨在训练模型生成共情回应，适用于心理咨询场景。</li>
+      <li><strong>特点</strong>：每段对话基于用户分享的故事，包含 4-8 轮对话，标注了 32 种情绪类别，适合多轮对话生成任务。</li>
       <li><strong>数据集结构</strong>：
         <table border="1" style="width: 80%; border-collapse: collapse;">
           <tr style="background-color: #f2f2f2;">
@@ -499,7 +499,7 @@ numpy
           </tr>
         </table>
       </li>
-      <li><strong>资源</strong>： <a href="https://github.com/facebookresearch/EmpatheticDialogues">EmpatheticDialogues on GitHub</a></li>
+      <li><strong>资源</strong>： <a href="https://github.com/facebookresearch/EmpatheticDialogues">GitHub</a></li>
     </ul>
   </li>
 </ul>
@@ -508,40 +508,225 @@ numpy
 <hr>
 
 <h2>微调计划</h2>
-<h3>微调策略</h3>
-<ul>
-  <li><strong>LoRA（低秩适配）微调</strong>:
+<h3>使用 SWIFT 进行 LoRA 微调</h3>
+<p>以下是使用 SWIFT 框架对 Qwen2.5-Omni 模型进行 LoRA（低秩适配）微调的详细步骤，目标是将模型优化为心理助手，提升其在情感支持和情绪分析中的表现。SWIFT 是一个高效的微调框架，支持多模态模型，适合资源有限的环境。参考 <a href="https://github.com/modelscope/swift">SWIFT Documentation</a>。</p>
+
+<ol>
+  <li><strong>环境准备</strong>:
     <ul>
-      <li><strong>目标</strong>：优化 Qwen2.5-Omni 模型的共情回应能力，生成更贴近心理辅导场景的对话。</li>
-      <li><strong>方法</strong>：在 SoulChatCorpus 上使用 LoRA 技术，仅更新部分参数（低秩矩阵），减少计算资源需求，同时保持模型性能。</li>
-      <li><strong>硬件要求</strong>：单张 NVIDIA A100 40GB GPU，16GB VRAM 即可完成微调。</li>
-      <li><strong>超参数</strong>：秩（rank）=8，学习率=1e-4，批大小=16，训练轮数=3，基于 QLoRA 优化（4-bit 量化）。</li>
-      <li><strong>预期效果</strong>：提升模型在焦虑、抑郁场景下的共情回应质量，例如生成“听起来你很焦虑，能否告诉我更多？”等回应。</li>
-      <li><strong>指南</strong>： <a href="https://arxiv.org/abs/2305.14314">QLoRA Fine-Tuning Guide</a></li>
+      <li><strong>系统要求</strong>: OS：Linux (Ubuntu 20.04+), Windows (WSL2), macOS (12.0+); Python：3.8+ (推荐 3.10); PyTorch：2.0+ (匹配 CUDA 12.1)。</li>
+      <li><strong>安装 SWIFT</strong>:
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Bash</td>
+            <td><pre><code>pip install ms-swift</code></pre></td>
+            <td>安装 SWIFT</td>
+          </tr>
+          <tr>
+            <td>Bash</td>
+            <td><pre><code>swift --version</code></pre></td>
+            <td>验证安装</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>安装依赖</strong>:
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Bash</td>
+            <td><pre><code>pip install torch transformers datasets accelerate peft bitsandbytes</code></pre></td>
+            <td>安装 LoRA 微调依赖</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>硬件要求</strong>: 单张 NVIDIA A100 40GB GPU 或 RTX 3090（16GB VRAM），建议预留 1.2 倍 VRAM 余量。</li>
     </ul>
   </li>
-  <li><strong>全参数微调</strong>:
+
+  <li><strong>数据集准备</strong>:
     <ul>
-      <li><strong>目标</strong>：全面提升模型在复杂心理辅导场景（如焦虑、抑郁、自我认知）的表现，增强多模态处理能力。</li>
-      <li><strong>方法</strong>：使用 SoulChatCorpus 和 EmpatheticDialogues 数据集，对 Qwen2.5-Omni-7B 模型进行全参数微调，更新所有权重。</li>
-      <li><strong>硬件要求</strong>：需要 4 张 NVIDIA A100 80GB GPU，建议使用多节点分布式训练（Data Parallel 或 DeepSpeed）。</li>
-      <li><strong>超参数</strong>：学习率=2e-5，批大小=4（每 GPU），训练轮数=5，启用 BF16 混合精度训练。</li>
-      <li><strong>预期效果</strong>：模型能够更准确地识别用户情绪，并生成更具针对性的建议，例如“也许你可以试试深呼吸，或者找一个朋友聊聊？”。</li>
-      <li><strong>指南</strong>： <a href="https://www.researchgate.net/publication/381279326_Leveraging_Large_Language_Models_for_Enhanced_Psychological_Consultation_A_Comprehensive_Framework_and_Evaluation">Full Parameter Fine-Tuning Framework</a></li>
+      <li><strong>SoulChatCorpus</strong>: 从 <a href="https://github.com/yirongch/SoulChat">SoulChat on GitHub</a> 下载，转换为 JSONL 格式。</li>
+      <li><strong>EmpatheticDialogues</strong>: 从 <a href="https://github.com/facebookresearch/EmpatheticDialogues">GitHub</a> 下载，转换为对话格式。</li>
+      <li><strong>ConvCounsel</strong>（可选）: 从 <a href="https://huggingface.co/datasets/conv-counsel">Hugging Face</a> 下载，处理语音和文本数据，增强多模态能力。</li>
+      <li><strong>下载命令</strong>:
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Bash</td>
+            <td><pre><code>git clone https://github.com/yirongch/SoulChat</code></pre></td>
+            <td>下载 SoulChatCorpus</td>
+          </tr>
+          <tr>
+            <td>Bash</td>
+            <td><pre><code>git clone https://github.com/facebookresearch/EmpatheticDialogues</code></pre></td>
+            <td>下载 EmpatheticDialogues</td>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>from datasets import load_dataset; dataset = load_dataset("conv-counsel"); dataset.save_to_disk("./conv_counsel")</code></pre></td>
+            <td>下载 ConvCounsel</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>格式要求</strong>: SWIFT 接受 JSONL 或 Hugging Face Dataset 格式，每条数据需包含 <code>text</code>（输入）和 <code>label</code>/<code>response</code>（输出）字段。</li>
     </ul>
   </li>
-  <li><strong>多模态微调</strong>:
+
+  <li><strong>配置微调参数</strong>:
     <ul>
-      <li><strong>目标</strong>：增强 Qwen2.5-Omni 在语音和图像输入上的处理能力，适用于语音交互和情绪分析场景。</li>
-      <li><strong>方法</strong>：结合语音数据集（如语音标注的情绪数据）和文本数据，微调模型的多模态模块（语音编码器和文本生成器），冻结视觉模块以降低资源需求。</li>
-      <li><strong>硬件要求</strong>：需要 60GB VRAM（语音+文本联合训练），推荐 4 张 A100 80GB GPU。</li>
-      <li><strong>超参数</strong>：学习率=1e-5，批大小=2（每 GPU），训练轮数=3，启用冻结部分预训练权重（冻结视觉模块，仅微调语音和文本模块）。</li>
-      <li><strong>预期效果</strong>：模型能够通过用户语音语调判断情绪，并生成语音回应，例如用温暖的语气回复“别担心，我们一起来解决这个问题。”</li>
-      <li><strong>指南</strong>： <a href="https://github.com/philschmid/deep-learning-pytorch-huggingface/blob/main/training/fine-tune-multimodal-llms-with-trl.ipynb">Multimodal Fine-Tuning with TRL</a></li>
+      <li>使用命令行参数定义 LoRA 微调，或创建配置文件 <code>config.json</code>：</li>
+      <li><strong>示例配置文件</strong>：
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>JSON</td>
+            <td><pre><code>{
+  "model_id": "Qwen/Qwen2.5-Omni-7B",
+  "dataset": "path_to_your_dataset",
+  "tuner": "lora",
+  "lora_rank": 8,
+  "lora_alpha": 16,
+  "learning_rate": 1e-4,
+  "per_device_train_batch_size": 4,
+  "gradient_accumulation_steps": 4,
+  "num_train_epochs": 3,
+  "output_dir": "./output_lora",
+  "fp16": true,
+  "evaluation_strategy": "steps",
+  "eval_steps": 500,
+  "save_steps": 500
+}</code></pre></td>
+            <td>LoRA 微调配置</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>参数解释</strong>:
+        <ul>
+          <li><code>lora_rank</code>: 低秩矩阵的秩，推荐值为 8。</li>
+          <li><code>lora_alpha</code>: LoRA 缩放因子，建议为 2 倍 rank，即 16。</li>
+          <li><code>learning_rate</code>: 学习率，1e-4 适合 LoRA 微调。</li>
+          <li><code>gradient_accumulation_steps</code>: 累积梯度步数，优化批大小。</li>
+          <li><code>fp16</code>: 启用混合精度训练，减少内存使用。</li>
+        </ul>
+      </li>
     </ul>
   </li>
-</ul>
-<p><strong>注意事项</strong>：微调前需备份模型权重，建议使用 LoRA 进行初步实验以降低成本。全参数微调可能需要数天，需确保硬件稳定。</p>
+
+  <li><strong>运行微调</strong>:
+    <ul>
+      <li><strong>命令行运行</strong>:
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Bash</td>
+            <td><pre><code>swift sft \
+    --model_id Qwen/Qwen2.5-Omni-7B \
+    --dataset path_to_your_dataset \
+    --tuner lora \
+    --lora_rank 8 \
+    --lora_alpha 16 \
+    --learning_rate 1e-4 \
+    --per_device_train_batch_size 4 \
+    --gradient_accumulation_steps 4 \
+    --num_train_epochs 3 \
+    --output_dir ./output_lora \
+    --fp16</code></pre></td>
+            <td>运行 LoRA 微调</td>
+          </tr>
+          <tr>
+            <td>Bash</td>
+            <td><pre><code>swift sft --config config.json</code></pre></td>
+            <td>使用配置文件运行</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>预期效果</strong>: 模型在焦虑、抑郁等场景下生成更具共情性的回应，如“听起来你很焦虑，能否告诉我更多？”。</li>
+    </ul>
+  </li>
+
+  <li><strong>监控与评估</strong>:
+    <ul>
+      <li>监控训练日志，检查 loss 下降情况。</li>
+      <li><strong>评估模型</strong>:
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>from transformers import AutoModelForCausalLM, AutoTokenizer
+model = AutoModelForCausalLM.from_pretrained("./output_lora")
+tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-Omni-7B")
+inputs = tokenizer("我最近感到很焦虑，怎样才能缓解？", return_tensors="pt")
+outputs = model.generate(**inputs, max_length=200)
+print(tokenizer.decode(outputs[0], skip_special_tokens=True))</code></pre></td>
+            <td>测试模型生成效果</td>
+          </tr>
+        </table>
+      </li>
+      <li><strong>预期输出</strong>: “听起来你很焦虑，能否告诉我更多？也许试试深呼吸？”</li>
+    </ul>
+  </li>
+
+  <li><strong>部署与测试</strong>:
+    <ul>
+      <li>将微调模型部署到 Gradio Web-UI：
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>import gradio as gr
+from transformers import pipeline
+pipe = pipeline("text-generation", model="./output_lora", tokenizer="Qwen/Qwen2.5-Omni-7B")
+def generate_response(prompt):
+    response = pipe(prompt, max_length=200, do_sample=True, temperature=0.7)
+    return response[0]['generated_text']
+demo = gr.Interface(fn=generate_response, inputs="text", outputs="text", title="CareLLM 心理助手")
+demo.launch()</code></pre></td>
+            <td>部署到 Gradio Web-UI</td>
+          </tr>
+        </table>
+      </li>
+      <li>测试语音输入需额外集成语音模块（如 <code>sounddevice</code>）。</li>
+    </ul>
+  </li>
+
+  <li><strong>优化与扩展</strong>:
+    <ul>
+      <li><strong>优化</strong>: 调整 <code>lora_rank</code>（4-16）或 <code>learning_rate</code>（5e-5 至 2e-4）以平衡性能和资源。</li>
+      <li><strong>扩展</strong>: 加入 ConvCounsel 数据，启用多模态微调，参考 <a href="https://github.com/huggingface/trl/tree/main/examples/multimodal">Multimodal Fine-Tuning with TRL</a>。</li>
+    </ul>
+  </li>
+</ol>
+
+<p><strong>注意事项</strong>: 微调前备份模型权重，建议先用 LoRA 进行实验以降低成本。更多 LoRA 微调细节可参考 <a href="https://arxiv.org/abs/2106.09685">LoRA Fine-Tuning Guide</a>。</p>
 
 <hr>
 
