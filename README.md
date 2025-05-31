@@ -554,7 +554,7 @@ numpy
 
   <li><strong>数据集准备</strong>:
     <ul>
-      <li><strong>SoulChatCorpus</strong>: 从 <a href="https://github.com/yirongch/SoulChat">SoulChat on GitHub</a> 下载，转换为 JSONL 格式。</li>
+      <li><strong>SoulChatCorpus</strong>: 从 <a href="https://www.kaggle.com/datasets/airzip/soul-chatcorpus">SoulChatcorpus on kaggle</a> 下载，转换为 JSONL 格式。</li>
       <li><strong>EmpatheticDialogues</strong>: 从 <a href="https://github.com/facebookresearch/EmpatheticDialogues">GitHub</a> 下载，转换为对话格式。</li>
       <li><strong>ConvCounsel</strong>（可选）: 从 <a href="https://huggingface.co/datasets/conv-counsel">Hugging Face</a> 下载，处理语音和文本数据，增强多模态能力。</li>
       <li><strong>下载命令</strong>:
