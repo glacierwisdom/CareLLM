@@ -84,32 +84,151 @@
 
 <h2>心理辅导应用</h2>
 <h3>应用场景</h3>
-Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力：
+Qwen2.5-Omni 的多模态能力可用于心理咨询场景，提供情感支持和情绪分析，以下是具体用法设计：
+
 <ol>
-  <li><strong>情感支持</strong> [<a href="https://arxiv.org/html/2408.16276v1">1</a>]:
+  <li><strong>情感支持</strong>:
     <ul>
-      <li><strong>功能</strong>：生成温暖的同理心回应，增强用户信任。</li>
-      <li><strong>流程</strong>：用户输入文本/语音（如“我感到压力很大”），模型分析情绪，生成回应（如“听起来很困难，有什么可以帮助你的？”），并提供建议（如正念练习）。</li>
-      <li><strong>技术</strong>：基于 Transformer 的文本生成，结合上下文和情绪关键词分析。</li>
+      <li><strong>功能</strong>：通过文本、语音或视频输入，生成温暖的同理心回应，增强用户信任。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户输入：通过文本（如“我最近压力很大，睡不好觉”）、语音或视频表达情感。</li>
+          <li>模型分析：结合语调、表情和关键词，识别情绪（如焦虑、压力）。</li>
+          <li>生成回应：输出如“听起来你最近过得很辛苦，睡不好觉一定很难受。试试深呼吸或定时的放松时间吧？”，支持文本或语音输出。</li>
+        </ul>
+      </li>
+      <li><strong>技术实现</strong>：
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor
+model = Qwen2_5OmniForConditionalGeneration.from_pretrained("Qwen/Qwen2.5-Omni-7B", torch_dtype="auto", device_map="auto")
+processor = Qwen2_5OmniProcessor.from_pretrained("Qwen/Qwen2.5-Omni-7B")
+text_input = "我最近压力很大，睡不好觉"
+inputs = processor(text=text_input, return_tensors="pt", padding=True)
+sys_prompt = "你是一个富有同理心的虚拟心理咨询助手，由 Qwen 团队开发，能够处理文本、语音和视频输入，提供支持性和有益的回应。"
+inputs["input_ids"] = processor.apply_chat_template([{"role": "system", "content": sys_prompt}, {"role": "user", "content": text_input}], add_generation_prompt=True, return_tensors="pt").to("cuda")
+generate_ids = model.generate(**inputs, max_length=200, do_sample=True, temperature=0.7)
+response = processor.batch_decode(generate_ids, skip_special_tokens=True)[0]
+print(response)</code></pre></td>
+            <td>处理文本输入并生成回应</td>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>import librosa
+from io import BytesIO
+import urllib.request
+audio_url = "https://example.com/stress_audio.wav"
+audio_data, _ = librosa.load(BytesIO(urllib.request.urlopen(audio_url).read()), sr=processor.feature_extractor.sampling_rate)
+audio_inputs = processor(text="请分析我的情绪", audios=[audio_data], return_tensors="pt", padding=True)
+audio_inputs["input_ids"] = processor.apply_chat_template([{"role": "system", "content": sys_prompt}, {"role": "user", "content": "请分析我的情绪"}], add_generation_prompt=True, return_tensors="pt").to("cuda")
+generate_ids = model.generate(**audio_inputs, max_length=200)
+response = processor.batch_decode(generate_ids, skip_special_tokens=True)[0]
+print(response)</code></pre></td>
+            <td>处理语音输入并生成回应</td>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>video_url = "https://example.com/stress_video.mp4"
+video_inputs = processor(text="请根据视频分析我的情绪", videos=[video_url], return_tensors="pt", padding=True)
+video_inputs["input_ids"] = processor.apply_chat_template([{"role": "system", "content": sys_prompt}, {"role": "user", "content": "请根据视频分析我的情绪"}], add_generation_prompt=True, return_tensors="pt").to("cuda")
+generate_ids = model.generate(**video_inputs, max_length=200)
+response = processor.batch_decode(generate_ids, skip_special_tokens=True)[0]
+print(response)</code></pre></td>
+            <td>处理视频输入并生成回应</td>
+          </tr>
+        </table>
+      </li>
     </ul>
   </li>
-  <li><strong>情绪分析</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11612938/">2</a>]:
+
+  <li><strong>情绪分析</strong>:
     <ul>
-      <li><strong>功能</strong>：检测焦虑、抑郁等情绪状态。</li>
-      <li><strong>流程</strong>：用户输入多模态数据（文本、语音），模型提取语调、关键词特征，生成情绪报告或个性化建议。</li>
-      <li><strong>技术</strong>：语音特征提取结合情感分类模型。</li>
+      <li><strong>功能</strong>：检测用户情绪状态（如焦虑、抑郁），提供个性化建议。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户输入：通过多模态数据（文本、语音、视频）表达情绪。</li>
+          <li>模型分析：提取语调、面部表情和关键词，生成情绪报告。</li>
+          <li>输出建议：如“你的语调显示出焦虑，试试正念练习或找人倾诉。”</li>
+        </ul>
+      </li>
+      <li><strong>技术实现</strong>：结合 `qwen_omni_utils` 处理多模态输入，参考 [视频信息提取](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/video_information_extracting.ipynb) 和 [音频理解](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/universal_audio_understanding.ipynb)。</li>
     </ul>
   </li>
-  <li><strong>虚拟现实对话</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12004015/">3</a>]:
+
+  <li><strong>多轮对话支持</strong>:
     <ul>
-      <li><strong>功能</strong>：通过 VR 平台与虚拟咨询师互动，促进自我反思。</li>
-      <li><strong>流程</strong>：部署模型到 VR 环境，用户通过语音交互，模型实时生成引导性回应。</li>
-      <li><strong>技术</strong>：实时语音生成与 VR 集成。</li>
+      <li><strong>功能</strong>：通过多轮对话跟踪情绪变化，提供持续支持。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户输入：如“深呼吸试过了，还是觉得焦虑”。</li>
+          <li>模型回应：结合历史上下文，输出“谢谢你告诉我，焦虑的感觉可能需要更多支持。也许可以找个朋友聊聊，或者试试写下你的想法？”</li>
+        </ul>
+      </li>
+      <li><strong>技术实现</strong>：
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>conversation = [
+    {"role": "user", "content": "我最近压力很大，睡不好觉"},
+    {"role": "assistant", "content": "听起来很困难，能否分享更多？"},
+    {"role": "user", "content": "深呼吸试过了，还是觉得焦虑"}
+]
+text = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
+inputs = processor(text=text, return_tensors="pt", padding=True)
+inputs.input_ids = inputs.input_ids.to("cuda")
+generate_ids = model.generate(**inputs, max_length=200)
+response = processor.batch_decode(generate_ids[:, inputs.input_ids.size(1):], skip_special_tokens=True)[0]
+print(response)</code></pre></td>
+            <td>实现多轮对话，参考 [多轮对话](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/multi_round_omni_chatting.ipynb)</td>
+          </tr>
+        </table>
+      </li>
+    </ul>
+  </li>
+
+  <li><strong>语音交互</strong>:
+    <ul>
+      <li><strong>功能</strong>：提供实时语音回应，增强用户体验。</li>
+      <li><strong>流程</strong>：
+        <ul>
+          <li>用户输入语音，模型分析并生成语音输出。</li>
+          <li>示例：用户说“我很焦虑”，模型以温暖语气回应“别担心，我支持你，试试深呼吸。”</li>
+        </ul>
+      </li>
+      <li><strong>技术实现</strong>：
+        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+          <tr style="background-color: #f2f2f2;">
+            <th>类型</th>
+            <th>命令/代码</th>
+            <th>说明</th>
+          </tr>
+          <tr>
+            <td>Python</td>
+            <td><pre><code>from qwen_omni_utils import generate_speech
+speech_output = generate_speech(response, voice_type="Chelsie")
+with open("response.wav", "wb") as f:
+    f.write(speech_output)</code></pre></td>
+            <td>生成语音回应，参考 [语音聊天](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/voice_chatting.ipynb)</td>
+          </tr>
+        </table>
+      </li>
     </ul>
   </li>
 </ol>
+
 <p align="center">
-  <strong>注意</strong>：未经微调的模型可能生成不准确回应，需优化以确保安全性。
+  <strong>注意</strong>：未经微调的模型可能生成不准确回应，需优化以确保安全性。建议使用 Gradio 界面部署，参考 [语音聊天](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/voice_chatting.ipynb) 和 [多轮对话](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/multi_round_omni_chatting.ipynb)。
 </p>
 
 <hr>
@@ -427,7 +546,7 @@ numpy
           </tr>
         </table>
       </li>
-      <li><strong>资源</strong>： <a href="https://www.kaggle.com/datasets/airzip/soul-chatcorpus">SoulChatcorpus on kaggle</a></li>
+      <li><strong>资源</strong>： <a href="https://github.com/yirongch/SoulChat">SoulChat on GitHub</a></li>
     </ul>
   </li>
   <li><strong>GoEmotions</strong>:
@@ -554,7 +673,7 @@ numpy
 
   <li><strong>数据集准备</strong>:
     <ul>
-      <li><strong>SoulChatCorpus</strong>: 从 <a href="https://www.kaggle.com/datasets/airzip/soul-chatcorpus">SoulChatcorpus on kaggle</a> 下载，转换为 JSONL 格式。</li>
+      <li><strong>SoulChatCorpus</strong>: 从 <a href="https://github.com/yirongch/SoulChat">SoulChat on GitHub</a> 下载，转换为 JSONL 格式。</li>
       <li><strong>EmpatheticDialogues</strong>: 从 <a href="https://github.com/facebookresearch/EmpatheticDialogues">GitHub</a> 下载，转换为对话格式。</li>
       <li><strong>ConvCounsel</strong>（可选）: 从 <a href="https://huggingface.co/datasets/conv-counsel">Hugging Face</a> 下载，处理语音和文本数据，增强多模态能力。</li>
       <li><strong>下载命令</strong>:
