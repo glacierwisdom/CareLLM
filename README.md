@@ -84,151 +84,108 @@
 
 <h2>心理辅导应用</h2>
 <h3>应用场景</h3>
-Qwen2.5-Omni 的多模态能力可用于心理咨询场景，提供情感支持和情绪分析，以下是具体用法设计：
-
+Qwen2.5-Omni 的多模态能力在心理辅导中具有广泛潜力。以下是基于 Qwen2.5-Omni 的心理咨询用法设计，支持文本、语音和视频输入，生成共情回应和个性化建议，适用于研究情感支持、情绪分析和虚拟现实咨询场景。
 <ol>
-  <li><strong>情感支持</strong>:
+  <li><strong>情感支持</strong> [<a href="https://arxiv.org/html/2408.16276v1">1</a>]:
     <ul>
-      <li><strong>功能</strong>：通过文本、语音或视频输入，生成温暖的同理心回应，增强用户信任。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户输入：通过文本（如“我最近压力很大，睡不好觉”）、语音或视频表达情感。</li>
-          <li>模型分析：结合语调、表情和关键词，识别情绪（如焦虑、压力）。</li>
-          <li>生成回应：输出如“听起来你最近过得很辛苦，睡不好觉一定很难受。试试深呼吸或定时的放松时间吧？”，支持文本或语音输出。</li>
-        </ul>
-      </li>
-      <li><strong>技术实现</strong>：
-        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
-          <tr style="background-color: #f2f2f2;">
-            <th>类型</th>
-            <th>命令/代码</th>
-            <th>说明</th>
-          </tr>
-          <tr>
-            <td>Python</td>
-            <td><pre><code>from transformers import Qwen2_5OmniForConditionalGeneration, Qwen2_5OmniProcessor
-model = Qwen2_5OmniForConditionalGeneration.from_pretrained("Qwen/Qwen2.5-Omni-7B", torch_dtype="auto", device_map="auto")
-processor = Qwen2_5OmniProcessor.from_pretrained("Qwen/Qwen2.5-Omni-7B")
-text_input = "我最近压力很大，睡不好觉"
-inputs = processor(text=text_input, return_tensors="pt", padding=True)
-sys_prompt = "你是一个富有同理心的虚拟心理咨询助手，由 Qwen 团队开发，能够处理文本、语音和视频输入，提供支持性和有益的回应。"
-inputs["input_ids"] = processor.apply_chat_template([{"role": "system", "content": sys_prompt}, {"role": "user", "content": text_input}], add_generation_prompt=True, return_tensors="pt").to("cuda")
-generate_ids = model.generate(**inputs, max_length=200, do_sample=True, temperature=0.7)
-response = processor.batch_decode(generate_ids, skip_special_tokens=True)[0]
-print(response)</code></pre></td>
-            <td>处理文本输入并生成回应</td>
-          </tr>
-          <tr>
-            <td>Python</td>
-            <td><pre><code>import librosa
-from io import BytesIO
-import urllib.request
-audio_url = "https://example.com/stress_audio.wav"
-audio_data, _ = librosa.load(BytesIO(urllib.request.urlopen(audio_url).read()), sr=processor.feature_extractor.sampling_rate)
-audio_inputs = processor(text="请分析我的情绪", audios=[audio_data], return_tensors="pt", padding=True)
-audio_inputs["input_ids"] = processor.apply_chat_template([{"role": "system", "content": sys_prompt}, {"role": "user", "content": "请分析我的情绪"}], add_generation_prompt=True, return_tensors="pt").to("cuda")
-generate_ids = model.generate(**audio_inputs, max_length=200)
-response = processor.batch_decode(generate_ids, skip_special_tokens=True)[0]
-print(response)</code></pre></td>
-            <td>处理语音输入并生成回应</td>
-          </tr>
-          <tr>
-            <td>Python</td>
-            <td><pre><code>video_url = "https://example.com/stress_video.mp4"
-video_inputs = processor(text="请根据视频分析我的情绪", videos=[video_url], return_tensors="pt", padding=True)
-video_inputs["input_ids"] = processor.apply_chat_template([{"role": "system", "content": sys_prompt}, {"role": "user", "content": "请根据视频分析我的情绪"}], add_generation_prompt=True, return_tensors="pt").to("cuda")
-generate_ids = model.generate(**video_inputs, max_length=200)
-response = processor.batch_decode(generate_ids, skip_special_tokens=True)[0]
-print(response)</code></pre></td>
-            <td>处理视频输入并生成回应</td>
-          </tr>
-        </table>
+      <li><strong>功能</strong>：生成温暖的同理心回应，增强用户信任。</li>
+      <li><strong>流程</strong>：用户通过文本或视频输入问题（如“我感到压力很大”），模型分析情绪，生成支持性回应（如“听起来很困难，能否分享更多？”）并提供建议（如正念练习）。视频模式支持实时录制和情绪分析。</li>
+      <li><strong>技术</strong>：基于 Transformer 的文本生成，结合上下文和情绪关键词分析，语音语调和视频表情提取。</li>
+      <li><strong>使用 Web-UI 进行心理辅导</strong>：
+        <p>本应用使用 Gradio Web-UI 提供交互界面，代码位于 GitHub 页面 <a href="https://github.com/glacierwisdom/CareLLM/blob/main/QwenPsychCounselingAppEnhanced.py">QwenPsychCounselingAppEnhanced.py</a>。以下是使用步骤：</p>
+        <ol>
+          <li><strong>环境准备</strong>：
+            <ul>
+              <li>安装依赖：运行以下命令：
+                <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+                  <tr style="background-color: #f2f2f2;">
+                    <th>类型</th>
+                    <th>命令/代码</th>
+                    <th>说明</th>
+                  </tr>
+                  <tr>
+                    <td>Bash</td>
+                    <td><pre><code>pip uninstall transformers
+pip install git+https://github.com/huggingface/transformers@v4.51.3-Qwen2.5-Omni-preview
+pip install accelerate qwen-omni-utils[decord] librosa opencv-python sounddevice gradio torch numpy</code></pre></td>
+                    <td>安装所需依赖</td>
+                  </tr>
+                </table>
+              </li>
+              <li>确保硬件支持（建议 NVIDIA A100 40GB GPU 或 RTX 3090）。</li>
+            </ul>
+          </li>
+          <li><strong>启动 Web-UI</strong>：
+            <ul>
+              <li>将 <code>QwenPsychCounselingAppEnhanced.py</code> 保存到项目目录。</li>
+              <li>运行以下命令启动应用：
+                <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
+                  <tr style="background-color: #f2f2f2;">
+                    <th>类型</th>
+                    <th>命令/代码</th>
+                    <th>说明</th>
+                  </tr>
+                  <tr>
+                    <td>Bash</td>
+                    <td><pre><code>python QwenPsychCounselingAppEnhanced.py</code></pre></td>
+                    <td>启动 Gradio 界面，默认端口 7860</td>
+                  </tr>
+                </table>
+              </li>
+              <li>在浏览器中访问 <code>http://127.0.0.1:7860</code>。</li>
+            </ul>
+          </li>
+          <li><strong>使用步骤</strong>：
+            <ul>
+              <li><strong>选择输入类型</strong>：切换“输入类型”到“video”或“text”。
+                <ul>
+                  <li><strong>视频模式</strong>：
+                    <ol>
+                      <li>点击“开始交互”启动摄像头和麦克风流捕获。</li>
+                      <li>选择是否保存视频（勾选“是否保存视频”并输入文件名，如“session1”），然后点击“开始录制”。</li>
+                      <li>每 5 秒自动分析视频和音频，生成回应并显示在“助手回应”区域。</li>
+                      <li>点击“停止录制”结束录制，点击“停止交互”关闭流。</li>
+                    </ol>
+                  </li>
+                  <li><strong>文本模式</strong>：
+                    <ol>
+                      <li>在“文本输入”区域输入内容，如“我最近压力很大”。</li>
+                      <li>点击“提交文本”获取回应。</li>
+                    </ol>
+                  </li>
+                </ul>
+              </li>
+              <li><strong>查看结果</strong>：对话历史显示在“对话历史”区域，包含用户输入和模型回应。视频模式下，回应包括情绪检测（如“检测到情绪: 焦虑”）和性格分析（如“性格分析: 你可能倾向于敏感和内向”）。</li>
+            </ul>
+          </li>
+          <li><strong>注意事项</strong>：
+            <ul>
+              <li>确保摄像头和麦克风已启用，检查权限设置。</li>
+              <li>模型仅限研究用途，非专业心理治疗替代品。</li>
+              <li>视频文件保存至 <code>recorded_videos</code> 目录，临时语音文件保存至 <code>temp_files</code> 目录。</li>
+            </ul>
+          </li>
+        </ol>
       </li>
     </ul>
   </li>
-
-  <li><strong>情绪分析</strong>:
+  <li><strong>情绪分析</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11612938/">2</a>]:
     <ul>
-      <li><strong>功能</strong>：检测用户情绪状态（如焦虑、抑郁），提供个性化建议。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户输入：通过多模态数据（文本、语音、视频）表达情绪。</li>
-          <li>模型分析：提取语调、面部表情和关键词，生成情绪报告。</li>
-          <li>输出建议：如“你的语调显示出焦虑，试试正念练习或找人倾诉。”</li>
-        </ul>
-      </li>
-      <li><strong>技术实现</strong>：结合 `qwen_omni_utils` 处理多模态输入，参考 [视频信息提取](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/video_information_extracting.ipynb) 和 [音频理解](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/universal_audio_understanding.ipynb)。</li>
+      <li><strong>功能</strong>：检测焦虑、抑郁等情绪状态。</li>
+      <li><strong>流程</strong>：用户输入多模态数据（文本、语音），模型提取语调、关键词特征，生成情绪报告或个性化建议。</li>
+      <li><strong>技术</strong>：语音特征提取结合情感分类模型。</li>
     </ul>
   </li>
-
-  <li><strong>多轮对话支持</strong>:
+  <li><strong>虚拟现实对话</strong> [<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12004015/">3</a>]:
     <ul>
-      <li><strong>功能</strong>：通过多轮对话跟踪情绪变化，提供持续支持。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户输入：如“深呼吸试过了，还是觉得焦虑”。</li>
-          <li>模型回应：结合历史上下文，输出“谢谢你告诉我，焦虑的感觉可能需要更多支持。也许可以找个朋友聊聊，或者试试写下你的想法？”</li>
-        </ul>
-      </li>
-      <li><strong>技术实现</strong>：
-        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
-          <tr style="background-color: #f2f2f2;">
-            <th>类型</th>
-            <th>命令/代码</th>
-            <th>说明</th>
-          </tr>
-          <tr>
-            <td>Python</td>
-            <td><pre><code>conversation = [
-    {"role": "user", "content": "我最近压力很大，睡不好觉"},
-    {"role": "assistant", "content": "听起来很困难，能否分享更多？"},
-    {"role": "user", "content": "深呼吸试过了，还是觉得焦虑"}
-]
-text = processor.apply_chat_template(conversation, add_generation_prompt=True, tokenize=False)
-inputs = processor(text=text, return_tensors="pt", padding=True)
-inputs.input_ids = inputs.input_ids.to("cuda")
-generate_ids = model.generate(**inputs, max_length=200)
-response = processor.batch_decode(generate_ids[:, inputs.input_ids.size(1):], skip_special_tokens=True)[0]
-print(response)</code></pre></td>
-            <td>实现多轮对话，参考 [多轮对话](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/multi_round_omni_chatting.ipynb)</td>
-          </tr>
-        </table>
-      </li>
-    </ul>
-  </li>
-
-  <li><strong>语音交互</strong>:
-    <ul>
-      <li><strong>功能</strong>：提供实时语音回应，增强用户体验。</li>
-      <li><strong>流程</strong>：
-        <ul>
-          <li>用户输入语音，模型分析并生成语音输出。</li>
-          <li>示例：用户说“我很焦虑”，模型以温暖语气回应“别担心，我支持你，试试深呼吸。”</li>
-        </ul>
-      </li>
-      <li><strong>技术实现</strong>：
-        <table align="center" border="1" style="width: 80%; border-collapse: collapse;">
-          <tr style="background-color: #f2f2f2;">
-            <th>类型</th>
-            <th>命令/代码</th>
-            <th>说明</th>
-          </tr>
-          <tr>
-            <td>Python</td>
-            <td><pre><code>from qwen_omni_utils import generate_speech
-speech_output = generate_speech(response, voice_type="Chelsie")
-with open("response.wav", "wb") as f:
-    f.write(speech_output)</code></pre></td>
-            <td>生成语音回应，参考 [语音聊天](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/voice_chatting.ipynb)</td>
-          </tr>
-        </table>
-      </li>
+      <li><strong>功能</strong>：通过 VR 平台与虚拟咨询师互动，促进自我反思。</li>
+      <li><strong>流程</strong>：部署模型到 VR 环境，用户通过语音交互，模型实时生成引导性回应。</li>
+      <li><strong>技术</strong>：实时语音生成与 VR 集成。</li>
     </ul>
   </li>
 </ol>
-
 <p align="center">
-  <strong>注意</strong>：未经微调的模型可能生成不准确回应，需优化以确保安全性。建议使用 Gradio 界面部署，参考 [语音聊天](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/voice_chatting.ipynb) 和 [多轮对话](https://github.com/QwenLM/Qwen2.5-Omni/blob/main/cookbooks/multi_round_omni_chatting.ipynb)。
+  <strong>注意</strong>：未经微调的模型可能生成不准确回应，需优化以确保安全性。
 </p>
 
 <hr>
