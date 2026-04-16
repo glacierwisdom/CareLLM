@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>Intelligent Science Group (ISG) 实验室心理健康大语言模型项目</h1>
+  <h1>CareLLM：心理健康大语言模型项目</h1>
 </div>
 
 <!-- 项目徽标 -->
